@@ -24,30 +24,82 @@ db.salles.find( { smac: true}, { nom: 1, _id:0})
 
 Affiche l'id et le nom des salles qui sont des SMAC.
 
+Résultat type :
+```
+{
+  nom: 'Paloma'
+}
+```
+
 ### Ex 2
 db.salles.find( { capacite : { $gt: 1000}}, { nom: 1, _id:0})
 
 Cette requête récupère les salles avec une capacité strictement supérieure à 1000
+
+Résultat type :
+```
+{
+  nom: 'Paloma'
+}
+```
 
 ### Ex 3
 db.salles.find({"adresse.numero": {$exists: false}}, {"nom":1})
 
 Cette requête récupère documents dont les adresses ont un champ numéro vide.
 
+Résultat type :
+```
+{
+  _id: 3,
+  nom: 'Sonograf'
+}
+```
+
 ### Ex 4
 db.salles.find({"avis": {$size: 1}}, {"nom":1})
 
 Cette requête récupère les salles qui ont exactement un avis.
+
+Résultat type :
+```
+{
+  _id: 2,
+  nom: 'Paloma'
+}
+```
 
 ### Ex 5
 db.salles.find({"styles.": {$eq: "blues"}}, {"styles":1})
 
 Cette requête récupère les salles qui programment du blues.
 
+Résultat type :
+```
+{
+  _id: 3,
+  styles: [
+    'blues',
+    'rock'
+  ]
+}
+```
+
 ### Ex 6
 db.salles.find({"styles.0": {$eq: "blues"}}, {"styles":1})
 
 Cette requête récupère les salles qui sont en première position dans le tableau styles "blues"
+
+Résultat type :
+```
+{
+  _id: 3,
+  styles: [
+    'blues',
+    'rock'
+  ]
+}
+```
 
 ### Ex 7 
 db.salles.find( { "codePostal": { "$regex": "^84" }, "capacite": { "$lt": 500 } }, { "ville": 1 } )
