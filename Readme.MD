@@ -121,5 +121,3 @@ Cette requête comptera le nombre de documents dans les salles où le champ "_id
 
 ### Ex 22
 db.salles.find().sort({capacity: -1}).limit(1).pretty()
-
-### Ex 23
