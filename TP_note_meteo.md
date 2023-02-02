@@ -49,6 +49,16 @@ $and: [
 ```
 db.delhiMeteo.aggregate([
    {
+      $match: {
+         $expr: {
+            $in: [
+               {$month: "$datetime_utc"},
+               [6, 7, 8, 9]
+            ]
+         }
+      }
+   },
+   {
       $group: {
          _id: {
             $dateToString: {
@@ -68,6 +78,41 @@ db.delhiMeteo.aggregate([
    }
 ])
 ```
+
+2.b) Récupération de la moyenne des températures de juin à septembre
+db.delhiMeteo.aggregate([
+   {
+      $match: {
+         $expr: {
+            $in: [
+               {$month: "$datetime_utc"},
+               [6, 7, 8, 9]
+            ]
+         }
+      }
+   },
+   {
+      $group: {
+         _id: {
+            $dateToString: {
+               date: {
+                  $toDate: "$datetime_utc"
+               },
+               format: "%Y-%m"
+            }
+         },
+         avgTemp: { $avg: "$_tempm" }
+      }
+   },
+   {
+      $sort: {
+         "_id": 1
+      }
+   },
+   {
+      $limit: 1
+   }
+])
 
 3) Export de la base de données pour un usage ultérieur
 ```
