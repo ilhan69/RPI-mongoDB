@@ -117,4 +117,6 @@ db.delhiMeteo.aggregate([
 3) Export de la base de données pour un usage ultérieur
 ```
 mongoexport --db tpMeteo --collection delhiMeteo --out delhiMeteo.json
+
+mongoexport --db tpMeteo --collection delhiMeteo --type=csv --fields datetime_utc,_tempm --out DelhiWeatherData.csv
 ```
